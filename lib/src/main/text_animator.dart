@@ -5,11 +5,12 @@ typedef ValueBuilder = Widget Function(BuildContext, String);
 class TextAnimator extends StatefulWidget {
   const TextAnimator({
     Key? key,
-    this.initial = 2,
+    this.initial = 0,
     this.color,
     required this.value,
     this.initializeToValue = false,
     required this.builder,
+    required this.duration,
   }) : super(key: key);
 
   final double initial;
@@ -17,6 +18,7 @@ class TextAnimator extends StatefulWidget {
   final Color? color;
   final bool initializeToValue;
   final ValueBuilder builder;
+  final Duration duration;
 
   @override
   State<TextAnimator> createState() => _TextAnimatorState();
@@ -34,7 +36,7 @@ class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderSt
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animationController = AnimationController(vsync: this, duration: widget.duration);
     _initial = initial;
     _value = value;
     widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
@@ -47,8 +49,13 @@ class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderSt
     if (oldWidget.value != widget.value) {
       _value = value;
       load(_initial, _value, true);
+    }if (oldWidget.initial != widget.initial) {
+      _initial = initial;
+      load(_initial, _initial);
     }
     if (oldWidget.initializeToValue != widget.initializeToValue) {
+      _initial = initial;
+      _value = value;
       widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
     }
   }
