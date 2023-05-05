@@ -59,12 +59,12 @@ class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderSt
     super.dispose();
   }
 
-  load(double s, double e, [bool init = false]) {
-    _animation = Tween(begin: s, end: e).animate(_animationController);
+  load(double start, double finish, [bool init = false]) {
+    _animation = Tween(begin: start, end: finish).animate(_animationController);
     _animationController.reset();
     _animationController.forward();
     if (init) {
-      _initial = e;
+      _initial = finish;
     }
   }
 
