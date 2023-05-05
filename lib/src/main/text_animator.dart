@@ -74,7 +74,7 @@ class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderSt
       builder: (context, child) {
         return Material(
           color: Colors.transparent,
-          child: widget.builder(context, '${_animation.value.floor()}'), //('${_animation.value.floor()}'),
+          child: widget.builder(context, '${_animation.value.floor()}'),
         );
       },
       animation: _animation,
