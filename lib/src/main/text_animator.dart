@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 typedef ValueBuilder = Widget Function(BuildContext, String);
 
+// enum{ counter, marquee, }
+
 class TextAnimator extends StatefulWidget {
   const TextAnimator({
     Key? key,
@@ -49,7 +51,8 @@ class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderSt
     if (oldWidget.value != widget.value) {
       _value = value;
       load(_initial, _value, true);
-    }if (oldWidget.initial != widget.initial) {
+    }
+    if (oldWidget.initial != widget.initial) {
       _initial = initial;
       load(_initial, _initial);
     }
