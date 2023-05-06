@@ -1,3 +1,3 @@
 library text_animator;
 
-export 'package:text_animator/text_animator.dart';
+export 'package:text_animator/src/main/text_animator.dart';
