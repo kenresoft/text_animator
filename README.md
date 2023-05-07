@@ -8,8 +8,20 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add to your pubspec.yaml file the dependency:
+
+```yaml
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  text_animator:
+    git:
+      url: git@github.com:kenresoft/text_animator.git
+      ref: release
+
+```
 
 ## Usage
 
