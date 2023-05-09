@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:number_animator_example/sample.dart';
 import 'package:text_animator/text_animator.dart';
+
+import 'inherited_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,10 +50,10 @@ class ExampleState extends State<Example> {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
 
-    return Sample(
+    return AnimatorInheritedWidget(
       object: this,
       child: Builder(builder: (context) {
-        final state = Sample.of(context)?.object;
+        final state = AnimatorInheritedWidget.of(context)?.object;
         return Scaffold(
           appBar: AppBar(backgroundColor: color.primary),
           body: Container(
@@ -91,7 +92,7 @@ class ExampleState extends State<Example> {
   }
 
   MaterialButton buildMaterialButton(Color color, double num, BuildContext context) {
-    final state = Sample.of(context)?.object;
+    final state = AnimatorInheritedWidget.of(context)?.object;
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: color,
