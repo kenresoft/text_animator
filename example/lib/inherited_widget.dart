@@ -1,27 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:number_animator_example/main.dart';
+part of 'example_1.dart';
 
-class AnimatorInheritedWidget extends InheritedWidget {
-  const AnimatorInheritedWidget({
+class _AnimatorInheritedWidget extends InheritedWidget {
+  const _AnimatorInheritedWidget({
     Key? key,
-    required this.object,
+    required this.exampleState,
     required Widget child,
   }) : super(key: key, child: child);
 
-  final ExampleState object;
+  final _ExampleState exampleState;
 
-  static AnimatorInheritedWidget? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<AnimatorInheritedWidget>();
+  static _AnimatorInheritedWidget? maybeOf(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<_AnimatorInheritedWidget>();
   }
 
-  static AnimatorInheritedWidget of(BuildContext context) {
-    final AnimatorInheritedWidget? animatorInheritedWidget = AnimatorInheritedWidget.maybeOf(context);
+  static _AnimatorInheritedWidget of(BuildContext context) {
+    final _AnimatorInheritedWidget? animatorInheritedWidget = _AnimatorInheritedWidget.maybeOf(context);
     assert(animatorInheritedWidget != null);
     return animatorInheritedWidget!;
   }
 
   @override
-  bool updateShouldNotify(AnimatorInheritedWidget oldWidget) {
-    return object != oldWidget.object;
+  bool updateShouldNotify(_AnimatorInheritedWidget oldWidget) {
+    return exampleState != oldWidget.exampleState;
   }
 }

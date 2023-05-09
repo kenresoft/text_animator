@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:text_animator/text_animator.dart';
 
-import 'inherited_widget.dart';
+part 'inherited_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,10 +32,10 @@ class Example extends StatefulWidget {
   const Example({Key? key}) : super(key: key);
 
   @override
-  State<Example> createState() => ExampleState();
+  State<Example> createState() => _ExampleState();
 }
 
-class ExampleState extends State<Example> {
+class _ExampleState extends State<Example> {
   double _data = 11;
 
   double get data => _data;
@@ -50,10 +50,10 @@ class ExampleState extends State<Example> {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
 
-    return AnimatorInheritedWidget(
-      object: this,
+    return _AnimatorInheritedWidget(
+      exampleState: this,
       child: Builder(builder: (context) {
-        final state = AnimatorInheritedWidget.of(context)?.object;
+        final state = _AnimatorInheritedWidget.of(context).exampleState;
         return Scaffold(
           appBar: AppBar(backgroundColor: color.primary),
           body: Container(
@@ -69,7 +69,7 @@ class ExampleState extends State<Example> {
                 padding: const EdgeInsets.only(top: 80),
                 child: TextAnimator(
                   initial: 50,
-                  value: state!.data,
+                  value: state.data,
                   initializeToValue: false,
                   duration: const Duration(seconds: 5),
                   builder: (BuildContext context, value) {
@@ -92,15 +92,12 @@ class ExampleState extends State<Example> {
   }
 
   MaterialButton buildMaterialButton(Color color, double num, BuildContext context) {
-    final state = AnimatorInheritedWidget.of(context)?.object;
+    final state = _AnimatorInheritedWidget.of(context).exampleState;
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: color,
-      /*onPressed: () => setState(() {
-        _data = num;
-      }),*/
       onPressed: () {
-        state?.animate(num);
+        state.animate(num);
       },
       child: Text('$num'),
     );
