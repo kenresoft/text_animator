@@ -9,12 +9,20 @@ class Example2 extends StatefulWidget {
 
 class _Example2State extends State<Example2> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation _animation;
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this);
-    _controller.forward();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animation = _controller;
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant Example2 oldWidget) {
+    _animation = Tween<double>(begin: 0, end: cb(context, (x) => x)).animate(_controller);
+    _controller.forward();
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -25,6 +33,9 @@ class _Example2State extends State<Example2> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    _animation = Tween<double>(begin: 10, end: cb(context, (x) => x)).animate(_controller);
+    _controller.forward();
+    final width = MediaQuery.of(context).size.width;
     final color = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(backgroundColor: color.primary),
@@ -35,8 +46,8 @@ class _Example2State extends State<Example2> with SingleTickerProviderStateMixin
           children: [
             AnimatedBuilder(
               builder: (context, child) {
-                return Transform.translate(
-                  offset: const Offset(20, 0),
+                return FractionalTranslation(
+                  translation: Offset(_animation.value, 0),
                   child: child,
                 );
               },
@@ -48,4 +59,9 @@ class _Example2State extends State<Example2> with SingleTickerProviderStateMixin
       ),
     );
   }
+}
+
+double cb(BuildContext context, double Function(double value) f) {
+  final width = MediaQuery.of(context).size.width;
+  return f(2.5);
 }
