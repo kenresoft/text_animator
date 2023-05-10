@@ -4,7 +4,12 @@ A Flutter Animated Text Package which helps to give life to values that can pass
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Number counter animation
+- Text transformation animation
+
+### Screenshots
+
+<img src="screenshots/Screenshot_20230507-233144.jpg" width="225" height="500" title="Screenshot 1" alt="Use case 1">
 
 ## Getting started
 
@@ -25,7 +30,26 @@ dependencies:
 
 ## Usage
 
-Examples on uasge of this package can be found in the [Example](example) folder.
+Complete Examples on uasge of this package can be found in the [Example](example) folder.
+
+```dart
+TextAnimator(
+  initial: 50,
+  value: state.data,
+  initializeToValue: false,
+  duration: const Duration(seconds: 5),
+  builder: (BuildContext context, value) {
+    return Text(
+      value,
+      style: const TextStyle(
+        backgroundColor: Colors.pinkAccent,
+        fontWeight: FontWeight.bold,
+        fontSize: 80,
+      ),
+    );
+  },
+),
+```
 
 ## Additional information
 
