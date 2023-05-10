@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:text_animator/text_animator.dart';
-
-part 'inherited_widget.dart';
+part of 'inherited_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: const Example(),
+      home: const Example2(),
     );
   }
 }
