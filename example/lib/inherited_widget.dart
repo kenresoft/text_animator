@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:number_animator_example/example_2.dart';
 import 'package:text_animator/text_animator.dart';
 
 part 'example_1.dart';

@@ -179,11 +179,9 @@ packages:
   text_animator:
     dependency: "direct main"
     description:
-      path: "."
-      ref: release
-      resolved-ref: c3591317e8feeda2c01ecabe3016a3eabf72a184
-      url: "git@github.com:kenresoft/text_animator.git"
-    source: git
+      path: ".."
+      relative: true
+    source: path
     version: "0.0.1"
   vector_math:
     dependency: transitive
