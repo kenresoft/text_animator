@@ -1,6 +1,6 @@
 # number_animator_example
 
-Number Animator Package
+Text Animator Package
 
 ## Getting Started
 

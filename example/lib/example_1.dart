@@ -1,30 +1,5 @@
 part of 'inherited_widget.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pinkAccent,
-          brightness: Brightness.light,
-        ),
-      ),
-      home: const Example2(),
-    );
-  }
-}
-
-// -------------------------------------------------------------------------------------------------
-
 class Example extends StatefulWidget {
   const Example({Key? key}) : super(key: key);
 
@@ -64,7 +39,7 @@ class _ExampleState extends State<Example> {
               ]),
               Padding(
                 padding: const EdgeInsets.only(top: 80),
-                child: TextAnimator(
+                child: CounterTextAnimator(
                   initial: 50,
                   value: state.data,
                   initializeToValue: false,

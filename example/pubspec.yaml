@@ -24,9 +24,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
   text_animator:
-    git:
-      url: "git@github.com:kenresoft/text_animator.git"
-      ref: "release"
+    path: '../'
+#    git:
+#      url: "git@github.com:kenresoft/text_animator.git"
+#      ref: "release"
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:text_animator/src/main/text_animator_mixin.dart';
 
 typedef ValueBuilder = Widget Function(BuildContext, String);
 
 // enum{ counter, marquee, }
 
-class TextAnimator extends StatefulWidget {
-  const TextAnimator({
+class CounterTextAnimator extends StatefulWidget {
+  const CounterTextAnimator({
     Key? key,
     this.initial = 0,
     this.color,
@@ -23,56 +24,61 @@ class TextAnimator extends StatefulWidget {
   final Duration duration;
 
   @override
-  State<TextAnimator> createState() => _TextAnimatorState();
+  State<CounterTextAnimator> createState() => _CounterTextAnimatorState();
 }
 
-class _TextAnimatorState extends State<TextAnimator> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerProviderStateMixin, TextAnimatorMixin {
   late Animation<double> _animation;
   late double _initial;
   late double _value;
 
-  double get initial => widget.initial;
+  @override
+  double get initialValue => widget.initial;
 
-  double get value => widget.value;
+  @override
+  double get currentValue => widget.value;
+
+  @override
+  double? get finalValue => null;
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: widget.duration);
-    _initial = initial;
-    _value = value;
+    animationController = AnimationController(vsync: this, duration: widget.duration);
+    _initial = initialValue;
+    _value = currentValue;
     widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
     super.initState();
   }
 
   @override
-  void didUpdateWidget(covariant TextAnimator oldWidget) {
+  void didUpdateWidget(covariant CounterTextAnimator oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.value != widget.value) {
-      _value = value;
+      _value = currentValue;
       load(_initial, _value, true);
     }
     if (oldWidget.initial != widget.initial) {
-      _initial = initial;
+      _initial = initialValue;
       load(_initial, _initial);
     }
     if (oldWidget.initializeToValue != widget.initializeToValue) {
-      _initial = initial;
-      _value = value;
+      _initial = initialValue;
+      _value = currentValue;
       widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
     }
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
+  @override
   load(double start, double finish, [bool init = false]) {
-    _animation = Tween(begin: start, end: finish).animate(_animationController);
-    _animationController.reset();
-    _animationController.forward();
+    _animation = Tween(begin: start, end: finish).animate(animationController);
+    animationController.reset();
+    animationController.forward();
     if (init) {
       _initial = finish;
     }
