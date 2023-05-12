@@ -25,7 +25,6 @@ class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with 
   late Animation<double> _animation;
   late double _initial;
   late double _value;
-  late double _width;
 
   @override
   void initState() {
@@ -38,7 +37,6 @@ class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with 
 
   @override
   void didChangeDependencies() {
-    _width = MediaQuery.of(context).size.width;
     super.didChangeDependencies();
   }
 
