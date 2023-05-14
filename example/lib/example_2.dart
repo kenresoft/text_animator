@@ -30,8 +30,9 @@ class _Example2State extends State<Example2> with SingleTickerProviderStateMixin
           children: [
             TranslationTextAnimator(
               color: color.primary,
-              startPosition: 10,
+              startPosition: 0,
               endPosition: 400,
+              duration: const Duration(seconds: 3),
               initializeToValue: true,
             )
           ],

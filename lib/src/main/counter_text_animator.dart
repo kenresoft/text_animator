@@ -27,8 +27,7 @@ class CounterTextAnimator extends StatefulWidget {
   State<CounterTextAnimator> createState() => _CounterTextAnimatorState();
 }
 
-class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerProviderStateMixin, TextAnimatorMixin {
-  late Animation<double> _animation;
+base class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerProviderStateMixin, TextAnimatorMixin {
   late double _initial;
   late double _value;
 
@@ -42,8 +41,11 @@ class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerPr
   double? get finalValue => null;
 
   @override
+  Duration? get duration => widget.duration;
+
+  @override
   void initState() {
-    animationController = AnimationController(vsync: this, duration: widget.duration);
+    animationController = AnimationController(vsync: this, duration: duration);
     _initial = initialValue;
     _value = currentValue;
     widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
@@ -76,7 +78,7 @@ class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerPr
 
   @override
   load(double start, double finish, [bool init = false]) {
-    _animation = Tween(begin: start, end: finish).animate(animationController);
+    animation = Tween(begin: start, end: finish).animate(animationController);
     animationController.reset();
     animationController.forward();
     if (init) {
@@ -90,10 +92,10 @@ class _CounterTextAnimatorState extends State<CounterTextAnimator> with TickerPr
       builder: (context, child) {
         return Material(
           color: Colors.transparent,
-          child: widget.builder(context, '${_animation.value.floor()}'),
+          child: widget.builder(context, '${animation.value.floor()}'),
         );
       },
-      animation: _animation,
+      animation: animation,
     );
   }
 }

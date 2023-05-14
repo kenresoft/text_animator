@@ -9,49 +9,64 @@ class TranslationTextAnimator extends StatefulWidget {
     required this.endPosition,
     this.currentPosition,
     this.initializeToValue = false,
+    this.duration = const Duration(seconds: 2),
   }) : super(key: key);
 
   final Color? color;
   final double? currentPosition;
   final double startPosition;
   final double endPosition;
+  final Duration? duration;
   final bool initializeToValue;
 
   @override
   State<TranslationTextAnimator> createState() => _TranslationTextAnimatorState();
 }
 
-class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with SingleTickerProviderStateMixin, TextAnimatorMixin {
-  late Animation<double> _animation;
+base class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with SingleTickerProviderStateMixin, TextAnimatorMixin {
   late double _initial;
-  late double _value;
+  late double _final;
+
+  @override
+  double get initialValue => widget.startPosition;
+
+  @override
+  double get currentValue => animation.value;
+
+  @override
+  double get finalValue => widget.endPosition;
+
+  @override
+  Duration? get duration => widget.duration;
 
   @override
   void initState() {
-    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 10));
-    _initial = initialValue;
-    _value = finalValue;
-    widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
+    //_updateWidget();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant TranslationTextAnimator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.startPosition != widget.startPosition || oldWidget.endPosition != widget.endPosition) {
+    /*if (oldWidget.startPosition != widget.startPosition || oldWidget.endPosition != widget.endPosition) {
+      animationController = AnimationController(vsync: this, duration: duration);
       animationController.reset();
       animationController.forward();
     }
     if (oldWidget.initializeToValue != widget.initializeToValue) {
-      _initial = initialValue;
-      _value = finalValue;
-      widget.initializeToValue ? load(_initial, _value) : load(_initial, _initial);
+      _updateWidget();
     }
+    if (oldWidget.duration!.compareTo(duration!) < 0) {
+      _updateWidget();
+    }*/
+    _updateWidget();
+  }
+
+  void _updateWidget() {
+    animationController = AnimationController(vsync: this, duration: duration);
+    _initial = initialValue;
+    _final = finalValue;
+    widget.initializeToValue ? load(_initial, _final) : load(_initial, _initial);
   }
 
   @override
@@ -61,17 +76,8 @@ class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with 
   }
 
   @override
-  double get initialValue => widget.startPosition;
-
-  @override
-  double get currentValue => 50;
-
-  @override
-  double get finalValue => widget.endPosition;
-
-  @override
   load(double start, double finish, [bool init = false]) {
-    _animation = Tween(begin: start, end: finish).animate(animationController);
+    animation = Tween(begin: start, end: finish).animate(animationController);
     animationController.reset();
     animationController.forward();
   }
@@ -85,24 +91,24 @@ class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with 
         child: AnimatedBuilder(
           builder: (context, child) {
             return Transform.translate(
-              offset: Offset(buildValue(width), 0),
+              offset: Offset(_buildValue(width), 0),
               child: child,
             );
           },
-          animation: _animation,
+          animation: animation,
           child: Container(color: widget.color, child: const Text('Hello world')),
         ),
       );
     });
   }
 
-  double buildValue(double width) {
+  double _buildValue(double width) {
     double value;
-    if (_animation.value > width) {
-      load(0, 300);
-      value = 0;
+    if (currentValue > width || currentValue >= finalValue) {
+      load(initialValue, finalValue);
+      value = initialValue;
     } else {
-      value = _animation.value;
+      value = currentValue;
     }
     return value;
   }
