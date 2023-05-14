@@ -13,7 +13,6 @@ class Example2 extends StatefulWidget {
 class _Example2State extends State<Example2> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    //_animation = Tween<double>(begin: 10, end: cb(context, (x) => x)).animate(_controller);
     final width = MediaQuery.of(context).size.width;
 
     final color = Theme.of(context).colorScheme;
@@ -32,8 +31,27 @@ class _Example2State extends State<Example2> with SingleTickerProviderStateMixin
               color: color.primary,
               startPosition: 0,
               endPosition: 400,
-              duration: const Duration(seconds: 3),
-              initializeToValue: true,
+              duration: const Duration(seconds: 15),
+              builder: (BuildContext context, ({int current, int end, int start}) record) {
+                return Card(
+                  color: color.primary,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  child: Container(
+                    width: 48,
+                    padding: const EdgeInsets.all(18),
+                    child: Center(
+                      child: Text(
+                        "${record.current}",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             )
           ],
         ),

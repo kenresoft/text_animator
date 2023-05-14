@@ -44,7 +44,7 @@ class _ExampleState extends State<Example> {
                   value: state.data,
                   initializeToValue: true,
                   duration: const Duration(seconds: 5),
-                  builder: (BuildContext context, value) {
+                  builder: (BuildContext context, String value) {
                     return Text(
                       value,
                       style: const TextStyle(

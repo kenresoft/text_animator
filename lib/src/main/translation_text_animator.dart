@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:text_animator/src/main/text_animator_mixin.dart';
 
+import 'animator_util.dart';
+
 class TranslationTextAnimator extends StatefulWidget {
   const TranslationTextAnimator({
     Key? key,
@@ -8,65 +10,49 @@ class TranslationTextAnimator extends StatefulWidget {
     required this.startPosition,
     required this.endPosition,
     this.currentPosition,
-    this.initializeToValue = false,
-    this.duration = const Duration(seconds: 2),
+    this.duration = const Duration(seconds: 5),
+    required this.builder,
   }) : super(key: key);
 
   final Color? color;
   final double? currentPosition;
   final double startPosition;
   final double endPosition;
+  final RecordBuilder builder;
   final Duration? duration;
-  final bool initializeToValue;
 
   @override
   State<TranslationTextAnimator> createState() => _TranslationTextAnimatorState();
 }
 
-base class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with SingleTickerProviderStateMixin, TextAnimatorMixin {
-  late double _initial;
-  late double _final;
-
+base class _TranslationTextAnimatorState extends State<TranslationTextAnimator> with TickerProviderStateMixin, TextAnimatorMixin {
   @override
-  double get initialValue => widget.startPosition;
+  double get initialValue => widget.startPosition == double.infinity ? 0 : widget.startPosition;
 
   @override
   double get currentValue => animation.value;
 
   @override
-  double get finalValue => widget.endPosition;
+  double get finalValue => widget.endPosition == double.infinity ? 0 : widget.endPosition;
 
   @override
   Duration? get duration => widget.duration;
 
   @override
   void initState() {
-    //_updateWidget();
+    _updateWidget();
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant TranslationTextAnimator oldWidget) {
     super.didUpdateWidget(oldWidget);
-    /*if (oldWidget.startPosition != widget.startPosition || oldWidget.endPosition != widget.endPosition) {
-      animationController = AnimationController(vsync: this, duration: duration);
-      animationController.reset();
-      animationController.forward();
-    }
-    if (oldWidget.initializeToValue != widget.initializeToValue) {
-      _updateWidget();
-    }
-    if (oldWidget.duration!.compareTo(duration!) < 0) {
-      _updateWidget();
-    }*/
     _updateWidget();
   }
 
   void _updateWidget() {
     animationController = AnimationController(vsync: this, duration: duration);
-    _initial = initialValue;
-    _final = finalValue;
-    widget.initializeToValue ? load(_initial, _final) : load(_initial, _initial);
+    load(initialValue, finalValue);
   }
 
   @override
@@ -92,11 +78,10 @@ base class _TranslationTextAnimatorState extends State<TranslationTextAnimator> 
           builder: (context, child) {
             return Transform.translate(
               offset: Offset(_buildValue(width), 0),
-              child: child,
+              child: widget.builder(context, (start: initialValue.ceil(), current: currentValue.ceil(), end: finalValue.ceil())),
             );
           },
           animation: animation,
-          child: Container(color: widget.color, child: const Text('Hello world')),
         ),
       );
     });

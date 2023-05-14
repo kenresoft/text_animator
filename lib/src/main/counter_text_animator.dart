@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:text_animator/src/main/text_animator_mixin.dart';
 
-typedef ValueBuilder = Widget Function(BuildContext, String);
+import 'animator_util.dart';
 
 // enum{ counter, marquee, }
 
