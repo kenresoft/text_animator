@@ -40,9 +40,9 @@ class _ExampleState extends State<Example> {
               Padding(
                 padding: const EdgeInsets.only(top: 80),
                 child: CounterTextAnimator(
-                  initial: 50,
+                  initial: 250,
                   value: state.data,
-                  initializeToValue: false,
+                  initializeToValue: true,
                   duration: const Duration(seconds: 5),
                   builder: (BuildContext context, value) {
                     return Text(
