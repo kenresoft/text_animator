@@ -33,7 +33,8 @@ dependencies:
 Complete Examples on uasge of this package can be found in the [Example](example) folder.
 
 ```dart
-TextAnimator(
+
+Widget widget = TextAnimator(
   initial: 50,
   value: state.data,
   initializeToValue: false,
@@ -48,7 +49,7 @@ TextAnimator(
       ),
     );
   },
-),
+);
 ```
 
 ## Additional information
