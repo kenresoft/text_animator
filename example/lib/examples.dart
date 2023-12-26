@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: const Example2(),
+      home: const Example(),
     );
   }
 }
+
