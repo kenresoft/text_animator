@@ -5,14 +5,14 @@ import 'animator_util.dart';
 
 class TranslationTextAnimator extends StatefulWidget {
   const TranslationTextAnimator({
-    Key? key,
+    super.key,
     this.color,
     required this.startPosition,
     required this.endPosition,
     this.currentPosition,
     this.duration = const Duration(seconds: 5),
     required this.builder,
-  }) : super(key: key);
+  });
 
   final Color? color;
   final double? currentPosition;
