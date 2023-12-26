@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-base mixin TextAnimatorMixin<T extends StatefulWidget> on State<T> {
+ mixin TextAnimatorMixin<T extends StatefulWidget> on State<T> {
+  /// A mixin for handling text animations.
+  ///
+  /// This mixin provides the necessary properties and methods for handling
+  /// animations in widgets.
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -25,8 +29,10 @@ base mixin TextAnimatorMixin<T extends StatefulWidget> on State<T> {
   /// Final
   double? get finalValue;
 
+  /// Duration
   Duration? get duration;
 
   /// Load
   load(double start, double finish, [bool init = false]) {}
 }
+
