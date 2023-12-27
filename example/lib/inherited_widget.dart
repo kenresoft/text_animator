@@ -6,10 +6,10 @@ part 'example_1.dart';
 
 class _AnimatorInheritedWidget extends InheritedWidget {
   const _AnimatorInheritedWidget({
-    Key? key,
+    super.key,
     required this.exampleState,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   final _ExampleState exampleState;
 
