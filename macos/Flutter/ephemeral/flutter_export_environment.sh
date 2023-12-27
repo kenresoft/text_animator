@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\user\AndroidStudioPlugins\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\user\AndroidStudioProjects\PROJECTS\packages\text_animator"
+export "FLUTTER_ROOT=C:\Users\kenre\AndroidStudioPlugins\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\kenre\AndroidStudioProjects\JetpackCompose\learning\text_animator"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"
