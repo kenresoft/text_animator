@@ -1,7 +1,7 @@
 part of 'inherited_widget.dart';
 
 class Example extends StatefulWidget {
-  const Example({Key? key}) : super(key: key);
+  const Example({super.key});
 
   @override
   State<Example> createState() => _ExampleState();
@@ -20,23 +20,24 @@ class _ExampleState extends State<Example> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme;
-
     return _AnimatorInheritedWidget(
       exampleState: this,
       child: Builder(builder: (context) {
         final state = _AnimatorInheritedWidget.of(context).exampleState;
         return Scaffold(
-          appBar: AppBar(backgroundColor: color.primary),
+          appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.primary),
           body: Container(
             margin: const EdgeInsets.only(top: 50),
             width: double.infinity,
             child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                buildMaterialButton(color.primaryContainer, 100, context),
-                buildMaterialButton(color.tertiaryContainer, 2000, context),
-                buildMaterialButton(color.inversePrimary, 40000, context),
-              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildMaterialButton(Theme.of(context).colorScheme.primaryContainer, 100),
+                  buildMaterialButton(Theme.of(context).colorScheme.tertiaryContainer, 2000),
+                  buildMaterialButton(Theme.of(context).colorScheme.inversePrimary, 40000),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 80),
                 child: CounterTextAnimator(
@@ -63,7 +64,7 @@ class _ExampleState extends State<Example> {
     );
   }
 
-  MaterialButton buildMaterialButton(Color color, double num, BuildContext context) {
+  MaterialButton buildMaterialButton(Color color, double num) {
     final state = _AnimatorInheritedWidget.of(context).exampleState;
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
